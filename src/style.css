@@ -1,3 +1,153 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    /* background: url('../img/bg1.jfif')center/contain no-repeat; */
+
+}
+
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
 h1 {
-    background-color: red;
+    text-align: center;
+    font-size: 3rem;
+    margin: 0;
+}
+
+input,
+button {
+    padding: 5px;
+    font-size: 1.2rem;
+}
+
+form {
+    display: inline-flex;
+    font-size: 1.2rem;
+}
+
+input[type="text"] {
+    border: 1px solid grey;
+    border-right: none;
+    border-radius: 5px;
+}
+
+#submitBtn {
+    border: 1px solid red;
+    border-radius: 5px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+
+.headingSection {
+    /* display: flex; */
+    /* justify-content: space-between; */
+    /* align-items: center; */
+    /* gap: 10px; */
+}
+
+.submitBtn {
+    display: block;
+}
+
+
+.searchBar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    padding-right: 0;
+    /* font-size: 1.2rem; */
+}
+
+
+.sectionOne {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin: 10px;
+}
+
+/* MainSection */
+
+.mainSection {
+    min-height: 87vh;
+    box-sizing: border-box;
+    border: 2px solid salmon;
+    /* display: flex; */
+    /* justify-content: space-between; */
+}
+
+
+.sectionTwo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    border-radius: 10px;
+}
+
+.weatherDetails,
+.locationContentTwo {
+    border: 2px solid rgb(4, 33, 131);
+    padding: 10px;
+    margin: 10px;
+    border-radius: 10px;
+}
+
+.weatherDetails {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.locationDiv {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.locationContentTwo {
+    min-height: 100px;
+    min-width: 100px;
+    background: url('../img/1.jpg')no-repeat center/contain;
+    display: flex;
+}
+
+.weatherDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.locationName {
+    text-align: center;
+    font-size: 4rem;
+}
+
+.WeatherMain {
+    text-align: center;
+    font-size: 2.5rem;
+}
+
+.visibility,
+.humidity,
+.temperature,
+.temperatureMin,
+.temperatureMax {
+    text-align: center;
+    font-size: 1.5rem;
 }

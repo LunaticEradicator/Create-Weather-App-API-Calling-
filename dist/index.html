@@ -7,11 +7,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web App</title>
     <script src="./main.js" defer></script>
-    <link rel="stylesheet" href="../src/syle.css">
+    <!-- <link rel="stylesheet" href="../src/syle.css"> -->
 </head>
 
 <body>
-    <h1>Weather App</h1>
+    <div class="container">
+        <div class="headingSection">
+            <h1>Weather App</h1>
+            <div class="searchBar">
+                <form action="#">
+                    <!-- <label for="country">Enter Location: </label> -->
+                    <div></div>
+                    <input type="text" name="country" class="inputCountry" placeholder="Location Name  ...">
+                    <input type="submit" name="submit" id="submitBtn" value="Search">
+                </form>
+            </div>
+        </div>
+        <div class="mainSection">
+            <div class="sectionOne">
+                <button class="temp1">&#8457</button>
+                <button class="temp2">&#8451</button>
+            </div>
+            <div class="weatherDetails">
+                <div class="sectionTwo">
+                    <div class="locationDiv">
+                        <div class="locationName">Location</div>
+                        <div class="weatherDiv">
+                            <div class="WeatherMain">Weather</div>
+                            <div class="locationContentTwo"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="sectionThree">
+                    <div class="temperatureDiv">
+                        <div class="temperature">temp=</div>
+                        <div class="temperatureMin">main-temp_Min</div>
+                        <div class="temperatureMax">main-temp_Max</div>
+                    </div>
+                    <div class="otherDiv">
+                        <div class="humidity">Humidity</div>
+                        <div class="visibility">visibility</div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+
 </body>
 
 </html>
