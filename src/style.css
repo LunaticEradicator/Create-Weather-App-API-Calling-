@@ -5,7 +5,8 @@ html {
 }
 
 body {
-    /* background: url('../img/bg1.jfif')center/contain no-repeat; */
+    /* background: url('../img/bg.jpg')center/cover no-repeat; */
+    /* color: aliceblue; */
 
 }
 
@@ -93,9 +94,9 @@ input[type="text"] {
 
 
 .sectionTwo {
-    display: grid;
+    /* display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    border-radius: 10px;
+    border-radius: 10px; */
 }
 
 .weatherDetails,
@@ -109,20 +110,21 @@ input[type="text"] {
 .weatherDetails {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    /* align-items: center; */
 }
 
 .locationDiv {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .locationContentTwo {
     min-height: 100px;
     min-width: 100px;
-    background: url('../img/1.jpg')no-repeat center/contain;
+    background: url('../img/1.svg')no-repeat center/cover;
+    /* background: url('../img/1.jpg')no-repeat center/cover; */
     display: flex;
 }
 
@@ -145,9 +147,32 @@ input[type="text"] {
 
 .visibility,
 .humidity,
-.temperature,
 .temperatureMin,
 .temperatureMax {
     text-align: center;
     font-size: 1.5rem;
+}
+
+.temperature {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.tempMinMaxDiv {
+    display: flex;
+    gap: 20px;
+}
+
+.otherDiv>div>span {
+    font-size: 2rem;
+}
+
+.otherDiv>div>div {
+    text-align: center;
+}
+
+.temperatureMinDiv,
+.temperatureMaxDiv {
+    display: flex;
+    align-items: center;
 }

@@ -1,3 +1,4 @@
+import { slice } from 'lodash';
 import './style.css';
 
 const h1 = document.querySelector('h1');
@@ -43,6 +44,8 @@ const temperatureMin = document.querySelector('.temperatureMin');
 const temperatureMax = document.querySelector('.temperatureMax');
 
 
+const time = document.querySelector('.time');
+const date = document.querySelector('.date');
 
 async function getAPI(placeName) {
     // const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&cnt=3&appid=02aac3f8bc0f0ae8dc16cdcea142f857`, { mode: 'cors' })
@@ -59,24 +62,67 @@ async function getAPI(placeName) {
         const fetchAllUrl = Promise.all(response.map(each => each.json()));
         const data = await fetchAllUrl;
         console.log(data);
-        locationName.textContent = data[0].name;
-        humidity.textContent = data[0].main.humidity;
+        locationName.textContent = `${data[0].name}, ${data[0].sys.country}`;
+        humidity.textContent = `${data[0].main.humidity}%`;
         visibility.textContent = data[0].visibility;
 
 
-
         console.log(data[0].weather[0].main)
-        WeatherMain.textContent = data[0].weather[0].main;
-        temperature.textContent = `${data[0].main.temp} ℃`;
-        temperatureMin.textContent = data[0].main.temp_min;
-        temperatureMax.textContent = data[0].main.temp_max;
+        WeatherMain.textContent = data[0].weather[0].description;
+        temperature.textContent = `${data[0].main.temp}℃`;
+        temperatureMin.textContent = `${data[0].main.temp_min}℃`;
+        temperatureMax.textContent = `${data[0].main.temp_max}℃`;
+
+        const offset = data[0].timezone * 1000;
+        console.log(offset);
+        if (offset > 0) {
+            // const sike = formatTime(data[0].dt + offset);
+            const timeValue = new Date(data[0].dt * 1000 + offset).toUTCString();
+            const sliceTime = timeValue.slice(17, 23);
+            const hour = sliceTime.slice(0, 2);
+            const sliceDay = timeValue.slice(0, 16);
+            // console.log(sliceDay)
+
+            if (hour >= 0 && hour < 12) {
+                time.textContent = `${sliceTime}am`;
+
+            }
+            else {
+                time.textContent = `${sliceTime}pm`;
+            }
+            date.textContent = sliceDay;
+        }
+        else {
+            // const sike = formatTime(data[0].dt - offset);
+            const timeValue = new Date(data[0].dt * 1000 - -offset).toUTCString();
+            const sliceTime = timeValue.slice(17, 23)
+            const hour = sliceTime.slice(0, 2);
+            const sliceDay = timeValue.slice(0, 16);
+            // console.log(sliceDay);
+
+            if (hour >= 0 && hour < 12) {
+                time.textContent = `${sliceTime}am`;
+            }
+            else {
+                time.textContent = `${sliceTime}pm`;
+            }
+            date.textContent = sliceDay;
+        }
 
     }
     catch (err) {
         throw new Error(err);
     }
-
 }
+
+// function formatTime(s) {
+//     const dtFormat = new Intl.DateTimeFormat('en-GB', {
+//         timeStyle: 'medium',
+//         timeZone: 'UTC'
+//     });
+
+//     return dtFormat.format(new Date(s * 1e3));
+// }
 
 
 async function getAPI1(name) {
@@ -94,6 +140,10 @@ function submitBtnPressed() {
         const getCountryName = inputCountry.value;
         console.log(getCountryName)
         getAPI(getCountryName)
+        // time.textContent = '';
+        // setTimeout(getAPI, 1000);
+
+
     })
 }
 function changeTemp() {
