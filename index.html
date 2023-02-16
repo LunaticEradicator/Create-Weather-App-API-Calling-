@@ -18,7 +18,8 @@
                 <form action="#">
                     <!-- <label for="country">Enter Location: </label> -->
                     <div></div>
-                    <input type="text" name="country" class="inputCountry" placeholder="Location Name  ...">
+                    <input type="text" name="country" class="inputCountry" placeholder="Location Name  ..."
+                        value="london">
                     <input type="submit" name="submit" id="submitBtn" value="Search">
                 </form>
             </div>
@@ -32,6 +33,19 @@
                 <div class="sectionTwo">
                     <div class="locationDiv">
                         <div class="locationName">Location</div>
+                        <div class="temperatureDiv">
+                            <div class="temperature">temp=</div>
+                            <div class="tempMinMaxDiv">
+                                <div class="temperatureMinDiv">
+                                    <span>Low:</span>
+                                    <div class="temperatureMin"></div>
+                                </div>
+                                <div class="temperatureMaxDiv">
+                                    <span>High:</span>
+                                    <div class="temperatureMax"></div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="weatherDiv">
                             <div class="WeatherMain">Weather</div>
                             <div class="locationContentTwo"></div>
@@ -39,14 +53,22 @@
                     </div>
                 </div>
                 <div class="sectionThree">
-                    <div class="temperatureDiv">
-                        <div class="temperature">temp=</div>
-                        <div class="temperatureMin">main-temp_Min</div>
-                        <div class="temperatureMax">main-temp_Max</div>
-                    </div>
+
                     <div class="otherDiv">
-                        <div class="humidity">Humidity</div>
-                        <div class="visibility">visibility</div>
+                        <div class="humidityDiv">
+                            <span>Humidity</span>
+                            <div class="humidity"></div>
+                        </div>
+                        <div class="visibilityDiv">
+                            <span>Visibility</span>
+                            <div class="visibility"></div>
+                        </div>
+                        <div class="dateDiv">
+                            <span>Time</span>
+                            <div class="time"></div>
+                            <div class="date"></div>
+
+                        </div>
                     </div>
                 </div>
             </div>
