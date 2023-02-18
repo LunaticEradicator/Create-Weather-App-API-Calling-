@@ -1,41 +1,13 @@
-import { slice } from 'lodash';
 import './style.css';
 
-const h1 = document.querySelector('h1');
-// function comp() {
-//     // Lodash, currently included via a script, is required for this line to work
-//     // element.textContent = _.join(['Hello', 'webpack'], ' ');
-//     // return element;
-// }
-// document.body.append(comp());
-
-
-// function getApi() {
-//     return fetch('http://api.openweathermap.org/geo/1.0/direct?q=London&limit=5&appid=02aac3f8bc0f0ae8dc16cdcea142f857', { mode: 'cors' })
-//         .then(resource => {
-//             const arr = resource.json()
-//             return (arr);
-//         })
-//         .then(data => {
-//             console.log(data[0].name);
-//         })
-//         .catch(err => {
-//             console.log(err);
-//         })
-// }
-// getApi()
-
-const mainSection = document.querySelector('.mainSection');
 const inputCountry = document.querySelector('.inputCountry');
 const submitBtn = document.querySelector('#submitBtn');
-const temp1 = document.querySelector('.temp1');
-const temp2 = document.querySelector('.temp2');
-const element = document.createElement('div');
+const fahrenheitUnit = document.querySelector('.fahrenheitUnit');
+const celsiusUnit = document.querySelector('.celsiusUnit');
 
 const locationName = document.querySelector('.locationName');
 const humidity = document.querySelector('.humidity');
 const visibility = document.querySelector('.visibility');
-
 
 
 const WeatherMain = document.querySelector('.WeatherMain');
@@ -87,50 +59,67 @@ const perDayFiveTemp = document.querySelector('.perDayFiveTemp');
 const perDayFiveHumidity = document.querySelector('.perDayFiveHumidity');
 const perDayFiveWindSpeed = document.querySelector('.perDayFiveWindSpeed');
 
+let getCountryName // userInput from HTML
+
 
 function capitalizeFirstLetterForPerDayWeather(data, numberIndex, description) {
     const descriptionUpperCased = description[0].toLocaleUpperCase();
-    const descriptionToArray = description.split("")
-    const descriptionAddCapitalLetterBack = descriptionToArray.splice(0, 1, descriptionUpperCased);
+    const descriptionToArray = description.split("");
+    descriptionToArray.splice(0, 1, descriptionUpperCased);
     const descriptionCapitalized = descriptionToArray.join('');
     return descriptionCapitalized;
 }
 
-async function getAPI(placeName, numberIndex) {
-    // const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${name}&cnt=3&appid=02aac3f8bc0f0ae8dc16cdcea142f857`, { mode: 'cors' })
-    // const data = await res.json();
-    // console.log(currentData)
+
+function fiveDayWeatherForecast(offset, data, numberIndex,
+    perDayItemName, perDayItemCondition, perDayItemPlace, perDayItemTemp, perDayItemHumidity, perDayItemWindSpeed,
+    temperatureUnit, windSpeedUnit) {
+    const perDayValue = new Date(data[1].list[numberIndex].dt * 1000 + offset).toUTCString();
+    const perDayValueSlice = perDayValue.slice(0, 16);
+    // console.log(perDayValueSlice)
+
+    const descriptionValue = `${data[1].list[numberIndex].weather[0].description}`;
+    perDayItemCondition.textContent = `${capitalizeFirstLetterForPerDayWeather(data, numberIndex, descriptionValue)}`; // function calling 
+
+    perDayItemName.textContent = `${perDayValueSlice}`;
+    perDayItemPlace.textContent = `${data[1].city.name}, ${data[1].city.country} `;
+    perDayItemTemp.textContent = `${data[1].list[numberIndex].main.temp}${temperatureUnit}`;
+    perDayItemHumidity.textContent = `${data[1].list[numberIndex].main.humidity}%`;
+    perDayItemWindSpeed.textContent = `${data[1].list[numberIndex].wind.speed} ${windSpeedUnit}`;
+
+}
+
+
+async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
     try {
         const response = await Promise.all(
             [
-                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${placeName}&cnt=3&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=metric`, { mode: 'cors' }),
-                fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${placeName}&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=metric`, { mode: 'cors' })
+                fetch(`https://api.openweathermap.org/data/2.5/weather?q=${placeName}&cnt=3&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=${unit}`, { mode: 'cors' }),
+                fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${placeName}&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=${unit}`, { mode: 'cors' })
             ]
         );
         const fetchAllUrl = Promise.all(response.map(each => each.json()));
         const data = await fetchAllUrl;
         console.log(data);
-        locationName.textContent = `${data[0].name}, ${data[0].sys.country}`;
-
-        console.log(data[0].weather[0].main)
+        // console.log(data[0].weather[0].main)
 
         const descriptionValue = data[0].weather[0].description
-        WeatherMain.textContent = `${capitalizeFirstLetterForPerDayWeather(data, numberIndex, descriptionValue)}`;// function calling 
-        temperature.textContent = `${data[0].main.temp}℃`;
-        temperatureMin.textContent = `${data[0].main.temp_min}℃`;
-        temperatureMax.textContent = `${data[0].main.temp_max}℃`;
+        locationName.textContent = `${data[0].name}, ${data[0].sys.country}`;
+        WeatherMain.textContent = `${capitalizeFirstLetterForPerDayWeather(data, undefined, descriptionValue)}`;// undefined since it is only need for fiveDayWeatherForecast
+        temperature.textContent = `${data[0].main.temp}${temperatureUnit}`;
+        temperatureMin.textContent = `${data[0].main.temp_min}${temperatureUnit}`;
+        temperatureMax.textContent = `${data[0].main.temp_max}${temperatureUnit}`;
 
         humidity.textContent = `${data[0].main.humidity}%`;
         visibility.textContent = `${data[0].visibility / 1000} km`;
-        wind.textContent = `${data[0].wind.speed} m/s`;
+        wind.textContent = `${data[0].wind.speed} ${windSpeedUnit}`;
         pressure.textContent = `${data[0].main.pressure} h/Pa`;
 
 
         const offset = data[0].timezone * 1000;
-        console.log(offset);
+        // console.log(offset);
         if (offset > 0) {
             // const sike = formatTime(data[0].dt + offset);
-
             const timeValue = new Date(data[0].dt * 1000 + offset).toUTCString();
             const sliceTime = timeValue.slice(17, 22);
             const hour = sliceTime.slice(0, 2);
@@ -165,7 +154,6 @@ async function getAPI(placeName, numberIndex) {
             const sunRiseValue = new Date(data[0].sys.sunrise * 1000 + offset).toUTCString();
             const sliceSunRiseTime = sunRiseValue.slice(17, 22);
 
-
             const sunSetValue = new Date(data[0].sys.sunset * 1000 + offset).toUTCString();
             const sliceSunSetTime = sunSetValue.slice(17, 22);
             // console.log(sliceDay);
@@ -183,89 +171,64 @@ async function getAPI(placeName, numberIndex) {
             date.textContent = sliceDay;
         }
 
-        // console.log(data[1].list[0].dt);
-        perDayWeather(offset, data, 7, perDayOneName, perDayOneCondition, perDayOnePlace, perDayOneTemp, perDayOneHumidity, perDayOneWindSpeed);
-        perDayWeather(offset, data, 15, perDayTwoName, perDayTwoCondition, perDayTwoPlace, perDayTwoTemp, perDayTwoHumidity, perDayTwoWindSpeed);
-        perDayWeather(offset, data, 23, perDayThreeName, perDayThreeCondition, perDayThreePlace, perDayThreeTemp, perDayThreeHumidity, perDayThreeWindSpeed);
-        perDayWeather(offset, data, 31, perDayFourName, perDayFourCondition, perDayFourPlace, perDayFourTemp, perDayFourHumidity, perDayFourWindSpeed);
-        perDayWeather(offset, data, 39, perDayFiveName, perDayFiveCondition, perDayFivePlace, perDayFiveTemp, perDayFiveHumidity, perDayFiveWindSpeed);
+        // For displaying fiveDayWeatherForecast  
+        fiveDayWeatherForecast(offset, data, 7, perDayOneName, perDayOneCondition, perDayOnePlace, perDayOneTemp, perDayOneHumidity, perDayOneWindSpeed, temperatureUnit, windSpeedUnit);
+        fiveDayWeatherForecast(offset, data, 15, perDayTwoName, perDayTwoCondition, perDayTwoPlace, perDayTwoTemp, perDayTwoHumidity, perDayTwoWindSpeed, temperatureUnit, windSpeedUnit);
+        fiveDayWeatherForecast(offset, data, 23, perDayThreeName, perDayThreeCondition, perDayThreePlace, perDayThreeTemp, perDayThreeHumidity, perDayThreeWindSpeed, temperatureUnit, windSpeedUnit);
+        fiveDayWeatherForecast(offset, data, 31, perDayFourName, perDayFourCondition, perDayFourPlace, perDayFourTemp, perDayFourHumidity, perDayFourWindSpeed, temperatureUnit, windSpeedUnit);
+        fiveDayWeatherForecast(offset, data, 39, perDayFiveName, perDayFiveCondition, perDayFivePlace, perDayFiveTemp, perDayFiveHumidity, perDayFiveWindSpeed, temperatureUnit, windSpeedUnit);
     }
     catch (err) {
         throw new Error(err);
     }
 }
 
-
-function perDayWeather(offset, data, numberIndex, perDayItemName, perDayItemCondition, perDayItemPlace, perDayItemTemp, perDayItemHumidity, perDayItemWindSpeed) {
-    const perDayValue = new Date(data[1].list[numberIndex].dt * 1000 + offset).toUTCString();
-    const perDayValueSlice = perDayValue.slice(0, 16);
-    console.log(perDayValueSlice)
-
-    const descriptionValue = `${data[1].list[numberIndex].weather[0].description}`;
-    perDayItemCondition.textContent = `${capitalizeFirstLetterForPerDayWeather(data, numberIndex, descriptionValue)}`; // function calling 
-
-    perDayItemName.textContent = `${perDayValueSlice}`;
-    perDayItemPlace.textContent = `${data[1].city.name}, ${data[1].city.country} `;
-    perDayItemTemp.textContent = `${data[1].list[numberIndex].main.temp}℃`;
-    perDayItemHumidity.textContent = `${data[1].list[numberIndex].main.humidity}%`;
-    perDayItemWindSpeed.textContent = `${data[1].list[numberIndex].wind.speed} m/s`;
-
-
-}
-
-// function formatTime(s) {
-//     const dtFormat = new Intl.DateTimeFormat('en-GB', {
-//         timeStyle: 'medium',
-//         timeZone: 'UTC'
-//     });
-
-//     return dtFormat.format(new Date(s * 1e3));
-// }
-
-
-async function getAPI1(name) {
-    // const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=london&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=imperial`, { mode: 'cors' })
-    const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=london&appid=02aac3f8bc0f0ae8dc16cdcea142f857`, { mode: 'cors' })
-    const data = await res.json();
-    console.log(data);
-    element.textContent = data.main.temp;
-    mainSection.body.append(element);
-}
-
 function submitBtnPressed() {
     submitBtn.addEventListener('click', e => {
         e.preventDefault();
-        const getCountryName = inputCountry.value;
-        console.log(getCountryName)
-        getAPI(getCountryName)
-        // time.textContent = '';
-        // setTimeout(getAPI, 1000);
-
-
+        getCountryName = inputCountry.value; // userInput from HTML
+        getAPI(getCountryName, 'metric', '°C', 'm/s');
     })
 }
+
 function changeTemp() {
-    temp2.addEventListener("click", async e => {
-        // const element = document.createElement('div');
-        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=london&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=metric`, { mode: 'cors' })
-        // const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=02aac3f8bc0f0ae8dc16cdcea142f857`, { mode: 'cors' })
-        const data = await res.json();
-        console.log(data);
-        element.textContent = data.main.temp;
-        // document.body.append(element);
+    fahrenheitUnit.addEventListener("click", async e => {
+        getCountryName = inputCountry.value; // userInput from HTML
+        getAPI(getCountryName, 'imperial', '°F', 'mi/h');
+
+        // // const element = document.createElement('div');
+        // const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=london&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=imperial`, { mode: 'cors' })
+        // // const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=02aac3f8bc0f0ae8dc16cdcea142f857`, { mode: 'cors' })
+        // const data = await res.json();
+        // console.log(data);
+        // element.textContent = data.main.temp;
+        // // document.body.append(element);
     })
 
-    temp1.addEventListener("click", async e => {
-        // const element = document.createElement('div');
-        const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=london&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=imperial`, { mode: 'cors' })
-        // const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=02aac3f8bc0f0ae8dc16cdcea142f857`, { mode: 'cors' })
-        const data = await res.json();
-        console.log(data);
-        element.textContent = data.main.temp;
-        // document.body.append(element);
+    celsiusUnit.addEventListener("click", async e => {
+        getCountryName = inputCountry.value; // userInput from HTML
+        getAPI(getCountryName, 'metric', '°C', 'm/s');
+        // // const element = document.createElement('div');
+        // const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=london&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=metric`, { mode: 'cors' })
+        // // const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=44.34&lon=10.99&appid=02aac3f8bc0f0ae8dc16cdcea142f857`, { mode: 'cors' })
+        // const data = await res.json();
+        // console.log(data);
+        // element.textContent = data.main.temp;
+        // // document.body.append(element);
     })
 }
 
-// getAPI1()
 changeTemp()
 submitBtnPressed()
+
+
+// async function getAPI1(name) {
+//     // const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=london&appid=02aac3f8bc0f0ae8dc16cdcea142f857&units=imperial`, { mode: 'cors' })
+//     const res = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=london&appid=02aac3f8bc0f0ae8dc16cdcea142f857`, { mode: 'cors' })
+//     const data = await res.json();
+//     console.log(data);
+//     element.textContent = data.main.temp;
+//     mainSection.body.append(element);
+// }
+
+// getAPI1()
