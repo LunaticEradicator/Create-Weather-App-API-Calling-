@@ -1,6 +1,8 @@
 import './style.css';
 
+const inputCountryHidden = document.querySelector('.inputCountryHidden');
 const inputCountry = document.querySelector('.inputCountry');
+
 const submitBtn = document.querySelector('#submitBtn');
 const fahrenheitUnit = document.querySelector('.fahrenheitUnit');
 const celsiusUnit = document.querySelector('.celsiusUnit');
@@ -78,7 +80,7 @@ function capitalizeFirstLetterForPerDayWeather(data, numberIndex, description) {
 
 function weatherConditionImages(dateItem, itemToApplyBackground) {
     const checkWeather = dateItem.textContent.toLowerCase();
-    console.log(checkWeather)
+    // console.log(checkWeather)
 
     if (checkWeather.includes("clear")) {
         itemToApplyBackground.style.background = `url('../img/clear.png')no-repeat center/contain`;
@@ -142,6 +144,8 @@ async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
         const data = await fetchAllUrl;
         console.log(data);
         // console.log(data[0].weather[0].main)
+
+
 
         const descriptionValue = data[0].weather[0].description
         locationName.textContent = `${data[0].name}, ${data[0].sys.country}`;
@@ -225,17 +229,8 @@ async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
     }
 }
 
-function submitBtnPressed() {
-    submitBtn.addEventListener('click', e => {
-        e.preventDefault();
-        getCountryName = inputCountry.value; // userInput from HTML
-        getAPI(getCountryName, 'metric', '°C', 'm/s');
-        console.clear();
-    })
-}
-
 function changeTemp() {
-    getCountryName = inputCountry.value; // userInput from HTML
+    getCountryName = inputCountry.value;
     fahrenheitUnit.addEventListener("click", async e => {
         getAPI(getCountryName, 'imperial', '°F', 'mi/h');
     })
@@ -244,7 +239,32 @@ function changeTemp() {
     })
 }
 
-changeTemp()
-submitBtnPressed()
+function submitBtnPressed() {
+    submitBtn.addEventListener('click', e => {
+        inputCountryHidden.remove();
+        inputCountry.style.color = 'transparent';
+        e.preventDefault();
+        getCountryName = inputCountry.value; // userInput from HTML
+        getAPI(getCountryName, 'metric', '°C', 'm/s');
+        changeTemp();
+        console.clear();
+    })
+}
+
+function changeTempPredefined() {
+    getCountryName = inputCountryHidden.value;
+    fahrenheitUnit.addEventListener("click", async e => {
+        getAPI(getCountryName, 'imperial', '°F', 'mi/h');
+    })
+    celsiusUnit.addEventListener("click", async e => {
+        getAPI(getCountryName, 'metric', '°C', 'm/s');
+    })
+}
+
+
+submitBtnPressed();
+// predefined weather data temperature
+getAPI('kerala', 'metric', '°C', 'm/s');
+changeTempPredefined();
 
 

@@ -259,3 +259,12 @@ button {
     align-items: center;
     gap: 10px;
 }
+
+/* input [type="text"]:focus::placeholder {
+    color: transparent;
+    border: 1px solid red;
+} */
+
+input:focus::placeholder {
+    color: transparent;
+}
