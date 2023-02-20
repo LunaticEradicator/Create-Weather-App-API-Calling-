@@ -68,6 +68,8 @@ const perDayThreeImage = document.querySelector('.perDayThreeImage');
 const perDayFourImage = document.querySelector('.perDayFourImage');
 const perDayFiveImage = document.querySelector('.perDayFiveImage');
 
+const image = document.querySelector('.nice');
+
 let getCountryName // userInput from HTML
 
 function capitalizeFirstLetterForPerDayWeather(data, numberIndex, description) {
@@ -164,8 +166,8 @@ async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
 
         const offset = data[0].timezone * 1000;
         // console.log(offset);
+
         if (offset > 0) {
-            // const sike = formatTime(data[0].dt + offset);
             const timeValue = new Date(data[0].dt * 1000 + offset).toUTCString();
             const sliceTime = timeValue.slice(17, 22);
             const hour = sliceTime.slice(0, 2);
@@ -181,12 +183,19 @@ async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
                 time.textContent = `${sliceTime}am`;
                 sunRise.textContent = `${sliceSunRiseTime}am &`;
                 sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
+                image.src = '../img/sunrise1.png'
+            }
+            else if (hour >= 12 && hour <= 18) {
+                time.textContent = `${sliceTime}am`;
+                sunRise.textContent = `${sliceSunRiseTime}am &`;
+                sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
+                image.src = '../img/sunrise3.png'
             }
             else {
-                // console.log(hour);
                 time.textContent = `${sliceTime}pm`;
                 sunRise.textContent = `${sliceSunRiseTime}am &`;
                 sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
+                image.src = '../img/night.png'
             }
             date.textContent = sliceDay;
         }
@@ -208,11 +217,19 @@ async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
                 time.textContent = `${sliceTime}am`;
                 sunRise.textContent = `${sliceSunRiseTime}am &`;
                 sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
+                image.src = '../img/sunrise1.png'
+            }
+            else if (hour >= 12 && hour < 18) {
+                time.textContent = `${sliceTime}am`;
+                sunRise.textContent = `${sliceSunRiseTime}am &`;
+                sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
+                image.src = '../img/sunrise3.png'
             }
             else {
                 time.textContent = `${sliceTime}pm`;
                 sunRise.textContent = `${sliceSunRiseTime}am &`;
                 sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
+                image.src = '../img/night1.png'
             }
             date.textContent = sliceDay;
         }
@@ -242,7 +259,7 @@ function changeTemp() {
 function submitBtnPressed() {
     submitBtn.addEventListener('click', e => {
         inputCountryHidden.remove();
-        inputCountry.style.color = 'transparent';
+        // inputCountry.style.color = 'transparent';
         e.preventDefault();
         getCountryName = inputCountry.value; // userInput from HTML
         getAPI(getCountryName, 'metric', '°C', 'm/s');
@@ -267,4 +284,5 @@ submitBtnPressed();
 getAPI('kerala', 'metric', '°C', 'm/s');
 changeTempPredefined();
 
+image.src = '../img/night.png'
 
