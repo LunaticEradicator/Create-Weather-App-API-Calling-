@@ -5,8 +5,10 @@ html {
 }
 
 body {
-    /* background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/bg.jpg'); */
-
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/bg1.jpg');
+    background-position: center;
+    color: white;
 }
 
 
@@ -38,10 +40,11 @@ h6 {
 }
 
 
-input,
-button {
+input {
     padding: 5px;
     font-size: 1.2rem;
+    background-color: black;
+    color: white;
 }
 
 form {
@@ -56,14 +59,35 @@ input[type="text"] {
 }
 
 button {
+    color: white;
+    background-color: rgb(0, 0, 0);
+    padding: 5px;
     font-size: 2rem;
     border-radius: 10px;
     cursor: pointer;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+img {
+    max-height: 300px;
+    max-width: 450px;
 }
 
 #submitBtn {
-    border: 1px solid red;
+    border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
+    cursor: pointer;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 2rem;
+    transition: 0.5s;
+}
+
+button:hover,
+#submitBtn:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
 }
 
 .container {
@@ -73,66 +97,47 @@ button {
     margin-top: 0px;
 }
 
-
-.headingSection {
-    /* display: flex; */
-    /* justify-content: space-between; */
-    /* align-items: center; */
-    /* gap: 10px; */
-}
-
 .submitBtn {
     display: block;
 }
-
 
 .searchBar {
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    /* margin-top: 10px; */
     padding: 10px;
-    /* padding-right: 0; */
-    /* font-size: 1.2rem; */
 }
 
-
-.sectionOne {
+.temperatureUnitDiv {
     display: flex;
     justify-content: flex-end;
     gap: 10px;
     margin: 10px;
 }
 
-/* MainSection */
+.sectionFour {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
+/* MainSection */
 .mainSection {
     min-height: 87vh;
     box-sizing: border-box;
-    /* border: 2px solid salmon; */
     border-radius: 10px;
 }
-
-
-.sectionTwo {
-    /* display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    border-radius: 10px; */
-}
-
 
 /* ,.weatherIcon  */
 .weatherDetails {
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
-    /* border: 2px solid rgb(4, 33, 131); */
     padding: 10px;
     margin: 10px;
     margin-bottom: 0px;
     border-radius: 10px;
 }
-
 
 .locationDiv {
     display: flex;
@@ -140,7 +145,6 @@ button {
     justify-content: center;
     gap: 20px;
 }
-
 
 .weatherIcon,
 .perDayOneImage,
@@ -153,20 +157,14 @@ button {
 }
 
 .dayOneImage {
-    /* min-height: 100px;
-    max-width: 110px; */
-    background: url('../img/1.png')no-repeat center/contain;
+    background: url('../img/condition/1.png')no-repeat center/contain;
     height: 100px;
-    /* background: url('../img/1.jpg')no-repeat center/cover; */
-    /* display: flex; */
 }
 
 .weatherDiv {
     display: flex;
-    /* justify-content: center; */
     align-items: center;
 }
-
 
 .locationName {
     font-size: 3.5rem;
@@ -212,14 +210,11 @@ button {
     gap: 10px;
 }
 
-
 .otherDetailsDiv {
     font-size: 2rem;
     display: flex;
     flex-direction: column;
 }
-
-
 
 .humidityDiv,
 .visibilityDiv,
@@ -291,7 +286,6 @@ button {
 }
 
 .dailyWeatherDetails>div {
-    /* border: 2px solid blueviolet; */
     height: 350px;
     border-radius: 10px;
     margin: 10px;
@@ -302,13 +296,9 @@ button {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
 }
 
-/* input [type="text"]:focus::placeholder {
-    color: transparent;
-    border: 1px solid red;
-} */
 
 input:focus::placeholder {
     opacity: 0;
@@ -316,23 +306,4 @@ input:focus::placeholder {
 
 input:active::placeholder {
     opacity: 1;
-}
-
-/* .sectionFour {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    background: url('../img/sunrise.svg') no-repeat center/contain;
-} */
-
-.sectionFour {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-img {
-    max-height: 300px;
-    max-width: 450px;
 }
