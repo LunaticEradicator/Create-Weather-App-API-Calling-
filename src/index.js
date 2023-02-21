@@ -13,7 +13,7 @@ const visibility = document.querySelector('.visibility');
 
 
 const weatherCondition = document.querySelector('.weatherCondition');
-const weatherIcon = document.querySelector('.weatherIcon');
+const weatherConditionIcon = document.querySelector('.weatherConditionIcon');
 const temperature = document.querySelector('.temperature');
 const temperatureMin = document.querySelector('.temperatureMin');
 const temperatureMax = document.querySelector('.temperatureMax');
@@ -68,53 +68,52 @@ const perDayThreeImage = document.querySelector('.perDayThreeImage');
 const perDayFourImage = document.querySelector('.perDayFourImage');
 const perDayFiveImage = document.querySelector('.perDayFiveImage');
 
-const image = document.querySelector('.nice');
+const dayTimeIcon = document.querySelector('.dayTimeIcon');
 
-let getCountryName // userInput from HTML
+let getUserInput // userInput from HTML
+const storeUserInputArray = [];
 
-const locationSearched = [];
-
-function capitalizeFirstLetterForPerDayWeather(data, numberIndex, description) {
+function capitalizeFirstLetterOfWeatherCondition(data, numberIndex, description) {
     const descriptionUpperCased = description[0].toLocaleUpperCase();
-    const descriptionToArray = description.split("");
-    descriptionToArray.splice(0, 1, descriptionUpperCased);
-    const descriptionCapitalized = descriptionToArray.join('');
+    const descriptionSplit = description.split("");
+    descriptionSplit.splice(0, 1, descriptionUpperCased);
+    const descriptionCapitalized = descriptionSplit.join('');
     return descriptionCapitalized;
 }
 
 function weatherConditionImages(dateItem, itemToApplyBackground) {
     const checkWeather = dateItem.textContent.toLowerCase();
     // console.log(checkWeather)
-
+    const weatherIcon = itemToApplyBackground;
     if (checkWeather.includes("clear")) {
-        itemToApplyBackground.style.background = `url('../img/condition/clear.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/clear.png')no-repeat center/contain`;
     }
     else if (checkWeather.includes("few")) {
-        itemToApplyBackground.style.background = `url('../img/condition/few.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/few.png')no-repeat center/contain`;
     }
     else if (checkWeather.includes("scattered")) {
-        itemToApplyBackground.style.background = `url('../img/condition/scattered.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/scattered.png')no-repeat center/contain`;
     }
     else if (checkWeather.includes("broken")) {
-        itemToApplyBackground.style.background = `url('../img/condition/broken.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/broken.png')no-repeat center/contain`;
     }
     else if (checkWeather.includes("overcast")) {
-        itemToApplyBackground.style.background = `url('../img/condition/overcast.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/overcast.png')no-repeat center/contain`;
     }
     else if (checkWeather.includes("shower") || checkWeather.includes("light rain")) {
-        itemToApplyBackground.style.background = `url('../img/condition/shower.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/shower.png')no-repeat center/contain`;
     }
     else if (checkWeather.textContent === "rain") {
-        itemToApplyBackground.style.background = `url('../img/condition/rain.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/rain.png')no-repeat center/contain`;
     }
     else if (checkWeather.includes("thunderstorm")) {
-        itemToApplyBackground.style.background = `url('../img/condition/thunderstorm.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/thunderstorm.png')no-repeat center/contain`;
     }
     else if (checkWeather.includes("snow")) {
-        itemToApplyBackground.style.background = `url('../img/condition/snow.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/snow.png')no-repeat center/contain`;
     }
     else if (checkWeather.includes("mist")) {
-        itemToApplyBackground.style.background = `url('../img/condition/mist.png')no-repeat center/contain`;
+        weatherIcon.style.background = `url('../img/condition/mist.png')no-repeat center/contain`;
     }
 }
 
@@ -124,22 +123,23 @@ function fiveDayWeatherForecast(offset, data, numberIndex,
 
     const perDayValue = new Date(data[1].list[numberIndex].dt * 1000 + offset).toUTCString();
     const perDayValueSlice = perDayValue.slice(0, 16);
-    const descriptionValue = `${data[1].list[numberIndex].weather[0].description}`; // weather condition 
-    fiveDayForecastCondition.textContent = `${capitalizeFirstLetterForPerDayWeather(data, numberIndex, descriptionValue)}`; // function calling and capitalize weather condition 
+    const weatherConditionName = `${data[1].list[numberIndex].weather[0].description}`; // weather condition 
+    fiveDayForecastCondition.textContent = `${capitalizeFirstLetterOfWeatherCondition(data, numberIndex, weatherConditionName)}`; // function calling and capitalize weather condition 
 
     fiveDayForecastDay.textContent = `${perDayValueSlice}`;
     fiveDayForecastPlace.textContent = `${data[1].city.name}, ${data[1].city.country} `;
     fiveDayForecastTemp.textContent = `${data[1].list[numberIndex].main.temp}${temperatureUnit}`;
     fiveDayForecastHumidity.textContent = `${data[1].list[numberIndex].main.humidity}%`;
     fiveDayForecastWindSpeed.textContent = `${data[1].list[numberIndex].wind.speed} ${windSpeedUnit}`;
-    weatherConditionImages(fiveDayForecastCondition, perDayImage) // show weatherCondition Image
+
+    weatherConditionImages(fiveDayForecastCondition, perDayImage) // show weatherCondition Icon
 }
 
 
 function displayWeatherUI(data, temperatureUnit, windSpeedUnit) {
-    const descriptionValue = data[0].weather[0].description
+    const weatherConditionName = data[0].weather[0].description
     locationName.textContent = `${data[0].name}, ${data[0].sys.country}`;
-    weatherCondition.textContent = `${capitalizeFirstLetterForPerDayWeather(data, undefined, descriptionValue)}`;// undefined since it is only need for fiveDayWeatherForecast
+    weatherCondition.textContent = `${capitalizeFirstLetterOfWeatherCondition(data, undefined, weatherConditionName)}`;// undefined since it is only need for fiveDayWeatherForecast
     temperature.textContent = `${data[0].main.temp}${temperatureUnit}`;
     temperatureMin.textContent = `${data[0].main.temp_min}${temperatureUnit}`;
     temperatureMax.textContent = `${data[0].main.temp_max}${temperatureUnit}`;
@@ -148,7 +148,7 @@ function displayWeatherUI(data, temperatureUnit, windSpeedUnit) {
     visibility.textContent = `${data[0].visibility / 1000} km`;
     wind.textContent = `${data[0].wind.speed} ${windSpeedUnit}`;
     pressure.textContent = `${data[0].main.pressure} h/Pa`;
-    weatherConditionImages(weatherCondition, weatherIcon); // show weatherCondition Image
+    weatherConditionImages(weatherCondition, weatherConditionIcon); // show weatherCondition Image
 }
 
 function displayDateAndTime(data, offset, timeValue) {
@@ -166,19 +166,19 @@ function displayDateAndTime(data, offset, timeValue) {
         time.textContent = `${sliceTime}am`;
         sunRise.textContent = `${sliceSunRiseTime}am &`;
         sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
-        image.src = '../img/sunrise.png'
+        dayTimeIcon.src = '../img/sunrise.png'
     }
     else if (hour >= 12 && hour <= 18) {
         time.textContent = `${sliceTime}am`;
         sunRise.textContent = `${sliceSunRiseTime}am &`;
         sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
-        image.src = '../img/afternoon.png'
+        dayTimeIcon.src = '../img/afternoon.png'
     }
     else {
         time.textContent = `${sliceTime}pm`;
         sunRise.textContent = `${sliceSunRiseTime}am &`;
         sunSet.textContent = `\u00A0${sliceSunSetTime}pm`;
-        image.src = '../img/night.png'
+        dayTimeIcon.src = '../img/night.png'
     }
     date.textContent = sliceDay;
 }
@@ -193,8 +193,8 @@ async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
         );
         const fetchAllUrl = Promise.all(response.map(each => each.json()));
         const data = await fetchAllUrl;
-        displayWeatherUI(data, temperatureUnit, windSpeedUnit)
-        // Display TimeAndDateDetails [Sunrise,Sunset Also Included]
+        displayWeatherUI(data, temperatureUnit, windSpeedUnit);
+
         const offset = data[0].timezone * 1000;
         if (offset > 0) {
             const timeValue = new Date(data[0].dt * 1000 + offset).toUTCString();
@@ -204,6 +204,7 @@ async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
             const timeValue = new Date(data[0].dt * 1000 - -offset).toUTCString();
             displayDateAndTime(data, offset, timeValue);
         }
+
         // For displaying fiveDayWeatherForecast  
         fiveDayWeatherForecast(offset, data, 7, perDayOneName, perDayOneCondition, perDayOnePlace, perDayOneTemp, perDayOneHumidity, perDayOneWindSpeed, temperatureUnit, windSpeedUnit, perDayOneImage);
         fiveDayWeatherForecast(offset, data, 15, perDayTwoName, perDayTwoCondition, perDayTwoPlace, perDayTwoTemp, perDayTwoHumidity, perDayTwoWindSpeed, temperatureUnit, windSpeedUnit, perDayTwoImage);
@@ -218,47 +219,49 @@ async function getAPI(placeName, unit, temperatureUnit, windSpeedUnit) {
 }
 
 function changeTemp() {
-    getCountryName = locationSearched[0];
+    getUserInput = storeUserInputArray[0];
     fahrenheitUnit.addEventListener("click", async e => {
-        console.log(locationSearched)
-        console.log(getCountryName)
-        getAPI(getCountryName, 'imperial', '°F', 'mi/h');
+        console.log(`fahrenheitUnit Pressed`)
+        console.log(storeUserInputArray)
+        getAPI(getUserInput, 'imperial', '°F', 'mi/h');
     })
     celsiusUnit.addEventListener("click", async e => {
-        console.log(locationSearched)
-        console.log(getCountryName)
-        getAPI(getCountryName, 'metric', '°C', 'm/s');
+        console.log(`celsiusUnit Pressed`)
+        console.log(storeUserInputArray)
+        getAPI(getUserInput, 'metric', '°C', 'm/s');
     })
 }
 
 function submitBtnPressed() {
     submitBtn.addEventListener('click', e => {
-        inputCountryHidden.remove(); // removes it after the user searches for an location
         e.preventDefault();
-        locationSearched.unshift(inputCountry.value) // add the userInput to an array
-        const [firstValue] = locationSearched; // arrayDestructs and gets the first value 
+        inputCountryHidden.remove(); // removes it after the user searches for an location
+        storeUserInputArray.unshift(inputCountry.value) // add the userInput to an array
+
+        const [firstValue] = storeUserInputArray; // arrayDestructs and gets the first value 
         getAPI(firstValue, 'metric', '°C', 'm/s');
         changeTemp();
-        console.clear();
         inputCountry.value = ''; // remove the value after submit
-        console.log(locationSearched)
+
+        console.clear();
+        // console.log(storeUserInputArray)
         console.log(firstValue)
     })
 }
 
 function changeTempPredefined() {
-    getCountryName = inputCountryHidden.value; // adds a hidden input element to get a predefined city location
+    getUserInput = inputCountryHidden.value; // adds a hidden input element to get a predefined city location
     fahrenheitUnit.addEventListener("click", async e => {
-        getAPI(getCountryName, 'imperial', '°F', 'mi/h');
+        getAPI(getUserInput, 'imperial', '°F', 'mi/h');
     })
     celsiusUnit.addEventListener("click", async e => {
-        getAPI(getCountryName, 'metric', '°C', 'm/s');
+        getAPI(getUserInput, 'metric', '°C', 'm/s');
     })
 }
 
 
 submitBtnPressed();
-// predefined weather data temperature
+// predefined weather data 
 getAPI('kerala', 'metric', '°C', 'm/s');
 changeTempPredefined();
 
