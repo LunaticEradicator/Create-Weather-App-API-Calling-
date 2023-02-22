@@ -8,16 +8,7 @@ const fahrenheitUnit = document.querySelector('.fahrenheitUnit');
 const celsiusUnit = document.querySelector('.celsiusUnit');
 
 const locationName = document.querySelector('.locationName');
-const humidity = document.querySelector('.humidity');
-const visibility = document.querySelector('.visibility');
-
-
-const weatherCondition = document.querySelector('.weatherCondition');
-const weatherConditionIcon = document.querySelector('.weatherConditionIcon');
-const temperature = document.querySelector('.temperature');
-const temperatureMin = document.querySelector('.temperatureMin');
-const temperatureMax = document.querySelector('.temperatureMax');
-
+const dayTimeIcon = document.querySelector('.dayTimeIcon');
 
 const time = document.querySelector('.time');
 const date = document.querySelector('.date');
@@ -25,7 +16,13 @@ const wind = document.querySelector('.wind');
 const sunRise = document.querySelector('.sunRise');
 const sunSet = document.querySelector('.sunSet');
 const pressure = document.querySelector('.pressure');
-
+const humidity = document.querySelector('.humidity');
+const visibility = document.querySelector('.visibility');
+const weatherCondition = document.querySelector('.weatherCondition');
+const weatherConditionIcon = document.querySelector('.weatherConditionIcon');
+const temperature = document.querySelector('.temperature');
+const temperatureMin = document.querySelector('.temperatureMin');
+const temperatureMax = document.querySelector('.temperatureMax');
 
 const perDayOneName = document.querySelector('.perDayOneName');
 const perDayOneCondition = document.querySelector('.perDayOneCondition');
@@ -68,7 +65,6 @@ const perDayThreeImage = document.querySelector('.perDayThreeImage');
 const perDayFourImage = document.querySelector('.perDayFourImage');
 const perDayFiveImage = document.querySelector('.perDayFiveImage');
 
-const dayTimeIcon = document.querySelector('.dayTimeIcon');
 
 let getUserInput // userInput from HTML
 const storeUserInputArray = [];

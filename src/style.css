@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Itim&family=Quicksand&display=swap');
+
 body,
 html {
     margin: 0;
@@ -5,10 +7,12 @@ html {
 }
 
 body {
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
     background-image: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../img/bg1.jpg');
     background-position: center;
     color: white;
+    font-family: 'Itim', cursive;
+    font-family: 'Quicksand', sans-serif;
 }
 
 
@@ -39,12 +43,9 @@ h6 {
     margin: 0;
 }
 
-
 input {
-    padding: 5px;
     background-color: black;
     color: white;
-    /* font-size: 1.2rem; */
 }
 
 form {
@@ -56,6 +57,8 @@ input[type="text"] {
     border: 1px solid grey;
     border-right: none;
     border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 button {
@@ -66,6 +69,7 @@ button {
     border-radius: 10px;
     cursor: pointer;
     border: 1px solid rgb(255, 255, 255);
+    transition: 0.5s;
 }
 
 img {
@@ -73,7 +77,32 @@ img {
     max-width: 450px;
 }
 
+.mainSection {
+    min-height: 87vh;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+
+
+.container {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    margin-top: 0px;
+}
+
+
+.searchBar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 10px;
+}
+
 #submitBtn {
+    padding: 5px;
+    font-family: 'Itim', cursive;
+    font-family: 'Quicksand', sans-serif;
     border: 1px solid rgb(255, 255, 255);
     border-radius: 5px;
     cursor: pointer;
@@ -83,29 +112,10 @@ img {
     transition: 0.5s;
 }
 
-button:hover,
-#submitBtn:hover {
-    background-color: rgb(255, 255, 255);
-    color: rgb(0, 0, 0);
-    border: 1px solid rgb(0, 0, 0);
-}
-
-.container {
+.sectionOne {
     display: flex;
-    flex-direction: column;
-    margin: 20px;
-    margin-top: 0px;
-}
-
-.submitBtn {
-    display: block;
-}
-
-.searchBar {
-    display: flex;
-    justify-content: flex-end;
+    justify-content: center;
     align-items: center;
-    padding: 10px;
 }
 
 .temperatureUnitDetails {
@@ -115,20 +125,13 @@ button:hover,
     margin: 10px;
 }
 
-.sectionOne {
+.sectionTwo {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-items: center;
+    gap: 20px;
 }
 
-/* MainSection */
-.mainSection {
-    min-height: 87vh;
-    box-sizing: border-box;
-    border-radius: 10px;
-}
-
-/* ,.weatherIcon  */
 .weatherDetails {
     display: flex;
     justify-content: space-around;
@@ -139,12 +142,6 @@ button:hover,
     border-radius: 10px;
 }
 
-.sectionTwo {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 20px;
-}
 
 .weatherConditionIcon,
 .perDayOneImage,
@@ -186,7 +183,6 @@ button:hover,
     font-size: 1.5rem;
 }
 
-
 .temperature {
     font-size: 2.5rem;
 }
@@ -202,7 +198,7 @@ button:hover,
     gap: 20px;
 }
 
-.otherDiv {
+.otherWeatherDetails {
     padding-top: 10px;
     display: flex;
     flex-direction: column;
@@ -210,7 +206,7 @@ button:hover,
     gap: 10px;
 }
 
-.otherDetailsDiv {
+.otherWeatherDetailsEach {
     font-size: 2rem;
     display: flex;
     flex-direction: column;
@@ -286,7 +282,7 @@ button:hover,
 }
 
 .fiveDayWeatherDetails>div {
-    height: 350px;
+    height: 340px;
     border-radius: 10px;
     margin: 10px;
     margin-top: 30px;
@@ -308,4 +304,11 @@ input:focus::placeholder {
 
 input:active::placeholder {
     opacity: 1;
+}
+
+button:hover,
+#submitBtn:hover {
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
+    border: 1px solid rgb(0, 0, 0);
 }
