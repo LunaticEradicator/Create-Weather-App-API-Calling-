@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script src="./src/index.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="headingSection">
+            <div class="searchBar">
+                <form action="#">
+                    <div></div>
+                    <input type="text" name="country" class="inputCountry" placeholder="Enter Location ....."
+                        autocomplete="off">
+                    <input type="hidden" name="country" class="inputCountryHidden" value="kerala">
+                    <input type="submit" name="submit" id="submitBtn" value="Search">
+                </form>
+            </div>
+        </div>
+        <div class="mainSection">
+
+            <div class="temperatureUnitDetails">
+                <button class="fahrenheitUnit">&#8457</button>
+                <button class="celsiusUnit">&#8451</button>
+            </div>
+            <div class="weatherDetails">
+                <div class="sectionOne">
+                    <div class="dayTimeIcon"> </div>
+                </div>
+                <div class="sectionTwo">
+                    <div class="locationName">Location</div>
+                    <div class="temperatureDiv">
+                        <div class="temperature">temperature</div>
+                        <div class="tempMinMaxDiv">
+                            <div class="temperatureMinDiv">
+                                <span>Low:</span>
+                                <div class="temperatureMin"></div>
+                            </div>
+                            <div class="temperatureMaxDiv">
+                                <span>High:</span>
+                                <div class="temperatureMax"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="dateDiv">
+                        <div class="time"></div>
+                        <div class="date"></div>
+                    </div>
+                    <div class="weatherConditionDiv">
+                        <div class="weatherConditionIcon"></div>
+                        <div class="weatherCondition">Weather</div>
+                    </div>
+                </div>
+                <div class="sectionThree">
+
+                    <div class="otherWeatherDetails">
+                        <div class="humidityDiv">
+                            <div class="humidityIcon"></div>
+                            <div class="otherWeatherDetailsEach">
+                                <span>Humidity</span>
+                                <div class="humidity"></div>
+                            </div>
+                        </div>
+                        <div class="visibilityDiv">
+                            <div class="visibilityIcon"></div>
+                            <div class="otherWeatherDetailsEach">
+                                <span>Visibility</span>
+                                <div class="visibility"></div>
+                            </div>
+                        </div>
+                        <div class="windDiv">
+                            <div class="windIcon"></div>
+                            <div class="otherWeatherDetailsEach">
+                                <span>Wind Speed</span>
+                                <div class="wind"></div>
+                            </div>
+                        </div>
+                        <div class="pressureDiv">
+                            <div class="pressureIcon"></div>
+                            <div class="otherWeatherDetailsEach">
+                                <span>Pressure level</span>
+                                <div class="pressure"></div>
+                            </div>
+                        </div>
+                        <div class="sunDetailsDiv">
+                            <div class="sunDetailsIcon"></div>
+                            <div class="otherWeatherDetailsEach">
+                                <span>Sun Rise & Set</span>
+                                <div class="sunDetails">
+                                    <div class="sunRise"></div>
+                                    <div class="sunSet"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="fiveDayWeatherDetails">
+                <div class="dayOneDiv">
+                    <div class="perDayOneImage"></div>
+                    <div class="dayDetails">
+                        <span class="perDayOneName">Day One</span>
+                        <h2 class="perDayOneCondition">Condition</h2>
+                        <h3 class="perDayOnePlace">Place</h3>
+                        <h4 class="perDayOneTemp">Feels Like</h4>
+                        <h5 class="perDayOneHumidity">Humidity</h5>
+                        <h6 class="perDayOneWindSpeed">Wind Speed</h6>
+                    </div>
+                </div>
+                <div class="dayTwoDiv">
+                    <div class="perDayTwoImage"></div>
+                    <div class="dayDetails">
+                        <span class="perDayTwoName">Day Two</span>
+                        <h2 class="perDayTwoCondition">Condition</h2>
+                        <h3 class="perDayTwoPlace">Place</h3>
+                        <h4 class="perDayTwoTemp">Feels Like</h4>
+                        <h5 class="perDayTwoHumidity">Humidity</h5>
+                        <h6 class="perDayTwoWindSpeed">Wind Speed</h6>
+                    </div>
+                </div>
+                <div class="dayThreeDiv">
+                    <div class="perDayThreeImage"></div>
+                    <div class="dayDetails">
+                        <span class="perDayThreeName">Day Three</span>
+                        <h2 class="perDayThreeCondition">Condition</h2>
+                        <h3 class="perDayThreePlace">Place</h3>
+                        <h4 class="perDayThreeTemp">Feels Like</h4>
+                        <h5 class="perDayThreeHumidity">Humidity</h5>
+                        <h6 class="perDayThreeWindSpeed">Wind Speed</h6>
+                    </div>
+                </div>
+                <div class="dayFourDiv">
+                    <div class="perDayFourImage"></div>
+                    <div class="dayDetails">
+                        <span class="perDayFourName">Day Four</span>
+                        <h2 class="perDayFourCondition">Condition</h2>
+                        <h3 class="perDayFourPlace">Place</h3>
+                        <h4 class="perDayFourTemp">Feels Like</h4>
+                        <h5 class="perDayFourHumidity">Humidity</h5>
+                        <h6 class="perDayFourWindSpeed">Wind Speed</h6>
+                    </div>
+                </div>
+                <div class="dayFiveDiv">
+                    <div class="perDayFiveImage"></div>
+                    <div class="dayDetails">
+                        <span class="perDayFiveName">Day Five</span>
+                        <h2 class="perDayFiveCondition">Condition</h2>
+                        <h3 class="perDayFivePlace">Place</h3>
+                        <h4 class="perDayFiveTemp">Feels Like</h4>
+                        <h5 class="perDayFiveHumidity">Humidity</h5>
+                        <h6 class="perDayFiveWindSpeed">Wind Speed</h6>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>
